@@ -1,0 +1,46 @@
+INFO:aurora-auto-clocker:[Done] opened Aurora webpage in Chrome
+INFO:aurora-auto-clocker:[Done] instantiated AutoClocker
+INFO:aurora-auto-clocker:[Done] returnning the title of the browser: Aurora Portal
+INFO:clocker-UI:[Done] show the login window
+INFO:aurora-auto-clocker:[Done] login to the Aurora
+INFO:clocker-UI:[Done] save the login credentails to the ini file
+INFO:clocker-UI:[Done] login to Aurora ERP system
+INFO:clocker-UI:[Checked] 1st param is the 'year'
+INFO:clocker-UI:[Checked] 1st param is the 'year'
+INFO:clocker-UI:[Checked] 1st param is the 'year'
+INFO:clocker-UI:[Checked] 1st param is the 'year'
+INFO:clocker-UI:[Done] read all the holidays from the holidays.csv: [[2022, 4, 4], [2022, 4, 5], [2022, 5, 1], [2022, 6, 3], [2022, 9, 9], [2022, 10, 10]]
+INFO:clocker-UI:[Checked] Total business days in range: 2; the date list: [[2022, 3, 28], [2022, 3, 29]]
+INFO:clocker-UI:[Checked] sending date: [2022, 3, 28] to the AutoClocker
+INFO:aurora-auto-clocker:[Checked] the generated random on/off time: On-Hour: 08時
+,  Off-Hour: 17時
+, Min: 59分
+
+INFO:aurora-auto-clocker:[Done] press the button: 申請
+INFO:aurora-auto-clocker:[Done] received date: day_Click(2022,3,28);
+INFO:aurora-auto-clocker:[Done] selecting the date: //td[@onclick='day_Click(2022,3,28);']
+INFO:aurora-auto-clocker:[Done] press the button: 送出
+INFO:aurora-auto-clocker:[Done] press the button: 關閉
+INFO:aurora-auto-clocker:[Done] press the button: 申請
+INFO:aurora-auto-clocker:[Done] received date: day_Click(2022,3,28);
+INFO:aurora-auto-clocker:[Done] selecting the date: //td[@onclick='day_Click(2022,3,28);']
+INFO:aurora-auto-clocker:[Done] press the button: 送出
+INFO:aurora-auto-clocker:[Done] press the button: 關閉
+INFO:clocker-UI:[Checked] sending date: [2022, 3, 29] to the AutoClocker
+INFO:aurora-auto-clocker:[Checked] the generated random on/off time: On-Hour: 08時
+,  Off-Hour: 17時
+, Min: 49分
+
+INFO:aurora-auto-clocker:[Done] press the button: 申請
+INFO:aurora-auto-clocker:[Done] received date: day_Click(2022,3,29);
+INFO:aurora-auto-clocker:[Done] selecting the date: //td[@onclick='day_Click(2022,3,29);']
+INFO:aurora-auto-clocker:[Done] press the button: 送出
+INFO:aurora-auto-clocker:[Done] press the button: 關閉
+INFO:aurora-auto-clocker:[Done] press the button: 申請
+INFO:aurora-auto-clocker:[Done] received date: day_Click(2022,3,29);
+INFO:aurora-auto-clocker:[Done] selecting the date: //td[@onclick='day_Click(2022,3,29);']
+INFO:aurora-auto-clocker:[Done] press the button: 送出
+INFO:aurora-auto-clocker:[Done] press the button: 關閉
+INFO:clocker-UI:[Done] clockin/out all the dates
+INFO:aurora-auto-clocker:[Done] close the web browser driver
+INFO:clocker-UI:[Done] close all tkinter objs
