@@ -1,7 +1,7 @@
 # PyAutoClock
 ---
 ## Overview
-Use Selenium module to  locate the buttons, inputs of the Aurora ERP system to automatically punch the clock.
+Use Selenium module to  locate the buttons, inputs of the Aurora ERP system, and try to automatically punch the clock.
 
 ## Download
     https://github.com/DiuDiuDangAr/PyAutoClock/releases/tag/1.0.0
