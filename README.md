@@ -15,7 +15,7 @@ Use Selenium module to  locate the buttons, inputs of the Aurora ERP system to a
 3. Press the "Start Clockin and clockout!" button to start punching clock
 Note: **Please don't close the Chrome browser during the process going**
 
-其他細節請參考 Aurora打卡小工具說明.pdf
+#其他細節請參考 Aurora打卡小工具說明.pdf
 
 ## Files
 1. **holidays.csv**: list the national holidays in Taiwan that'll be skipped if included in the period of selected start-end date
