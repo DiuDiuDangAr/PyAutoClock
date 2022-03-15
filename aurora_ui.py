@@ -1,19 +1,21 @@
+from sqlite3 import Date
 import tkinter as tk
 import babel.numbers
 import logging
-import os.path
-import csv
 from datetime import date, datetime, timedelta
 from tkcalendar import Calendar
 from tkinter import messagebox
-from PyAutoClockInOut import AuroraAutoClocker
-from configparser import ConfigParser
+from aurora_auto_clocker import AuroraAutoClocker
+from credential_tool import CredentialRWTool
+from date_tool import DateTool
 
 class UIClock:
        def __init__(self) -> None:
        # create AuroraAutoClocker obj
               self._auto_clk = None
               self.logger = logging.getLogger("clocker-UI")
+              self._cred_rw_tool = CredentialRWTool()
+              self._date_tool = DateTool()
 
        # create tkinter object
               self.root = tk.Tk()
@@ -27,12 +29,10 @@ class UIClock:
 
        # set menubar
               self.menubar = tk.Menu(self.root)
-
               self.filemenu = tk.Menu(self.menubar)
               self.filemenu.add_command(label="Login", command=self.login_ui)
               self.filemenu.add_command(label="About", command=self.about_tool)
               self.menubar.add_cascade(label="File", menu=self.filemenu)
-
               self.root.config(menu=self.menubar)
 
        # get today's date
@@ -75,20 +75,20 @@ class UIClock:
        # start the Tkinter UI       
               self.root.mainloop()
 
-       def login_ui(self):
-       # login window
+       def about_tool(self) -> None:
+              messagebox.showinfo("About","Powered by NI Engineer")
+
+       def login_ui(self) -> None:
               if self._auto_clk is None:
                      self._auto_clk = AuroraAutoClocker()
               if self._auto_clk.browser_title is None:
                      self.logger.info("the browser title is none")
                      self._auto_clk.__init__()
-              self._id, self._pwd = self._read_ini()
+              self._id, self._pwd = self._cred_rw_tool.read_ini()
               self.compid = tk.StringVar()
               self.compid.set('qd9323')
-
               self.userid = tk.StringVar()
               self.userid.set(self._id)
-
               self.userpwd = tk.StringVar()
               self.userpwd.set(self._pwd)
 
@@ -97,42 +97,16 @@ class UIClock:
               self.login_page.title('Aurora打卡系統登入')
               self.login_page.resizable(0,0)
               self.login_page.attributes('-topmost', True)
+
               self.label_compid = tk.Label(self.login_page, text ="Company ID").place(x=10, y=10)
               self.entry_compid = tk.Entry(self.login_page, textvariable=self.compid).place(x=110,y=10)
-
               self.label_userid = tk.Label(self.login_page, text ="User number").place(x=10, y=50)
               self.entry_userid = tk.Entry(self.login_page, textvariable=self.userid).place(x=110,y=50)
-
               self.label_userpwd = tk.Label(self.login_page, text ="User password").place(x=10, y=90)
               self.entry_userpwd = tk.Entry(self.login_page, textvariable=self.userpwd, show="*").place(x=110,y=90)
 
               self.btn_login = tk.Button(self.login_page, text = "Login", command = self.login, bg = 'gray').place(x=140,y=130)
-
               self.logger.info("[Done] show the login window")
-
-       def _read_ini(self) -> list:
-              config = ConfigParser()
-              try:
-                     assert os.path.exists('config.ini')
-                     config.read('config.ini')
-                     id, pwd = config['Credentials']['ID'], config['Credentials']['password']
-                     return id, pwd
-              except Exception as e:
-                     self.logger.warning(f"while reading the credentials from the ini: {e}")
-                     return 'XXXXXX','XXXXXXXXXX'
-
-       def _write_ini(self, id, pwd):
-              config = ConfigParser()
-              config['Credentials'] = {}
-              config['Credentials']['ID'] = id
-              config['Credentials']['password'] = pwd
-
-              with open('config.ini','w') as f:
-                     config.write(f)
-                     self.logger.info("[Done] save the login credentails to the ini file")
-
-       def about_tool(self):
-              messagebox.showinfo("About","Powered by NI Engineer")
 
        def close_action(self):
               try:
@@ -143,34 +117,30 @@ class UIClock:
                      self.root.quit()
                      self.logger.info("[Done] close all tkinter objs")
 
+       def _check_year_position(self, date) -> date:
+              if int(date[0]) in range(2022,2050):
+                     self.logger.info("[Checked]: 1st param is the 'year'")
+                     date = datetime(int(date[0]),int(date[1]),int(date[2]))
+                     return date
+              elif int(date[2]) in range(22,50):
+                     self.logger.info("[Checked]: 3rd param is the 'year'")
+                     date[2] = str(2000 + int(date[2]))
+                     date = datetime(int(date[2]),int(date[0]),int(date[1]))
+                     return date   
+
        def grad_date_start(self):
               self.date_start = self.cal.get_date()
               self.label_date_start.config(text = f"Start Date is: {self.date_start}")
               self.date_start = self.date_start.split("/")
+              self.date_start = self._check_year_position(self.date_start)
 
-              if int(self.date_start[0]) in range(2022,2050):
-                     self.logger.info("[Checked] 1st param is the 'year'")
-                     self.date_start = datetime(int(self.date_start[0]),int(self.date_start[1]),int(self.date_start[2]))
-              elif int(self.date_start[2]) in range(22,50):
-                     self.logger.info("[Checked] 3rd param is the 'year'")
-                     self.date_start[2] = str(2000 + int(self.date_start[2]))
-                     self.date_start = datetime(int(self.date_start[2]),int(self.date_start[0]),int(self.date_start[1]))
-                     
        def grad_date_end(self):
               self.date_end = self.cal.get_date()
               self.label_date_end.config(text = f"End Date is: {self.date_end}")
               self.date_end = self.date_end.split("/")
-
-              if int(self.date_end[0]) in range(2022,2050):
-                     self.logger.info("[Checked] 1st param is the 'year'")
-                     self.date_end = datetime(int(self.date_end[0]),int(self.date_end[1]),int(self.date_end[2]))
-              elif int(self.date_end[2]) in range(22,50):
-                     self.logger.info("[Checked] 3rd param is the 'year'")
-                     self.date_end[2] = str(2000 + int(self.date_end[2]))
-                     self.date_end = datetime(int(self.date_end[2]),int(self.date_end[0]),int(self.date_end[1]))
-       
+              self.date_end = self._check_year_position(self.date_end)
+    
        def send_start_end_date(self):
-       # 1. check whether the selection is a valid pair
               msg_chk = False
               try:
                      assert (self.date_start - self.date_end).days <= 0
@@ -178,35 +148,8 @@ class UIClock:
               except Exception as e:
                      messagebox.showinfo(f'填錯了喔!', f'請選擇正確的起始與結束日期!!')
               if msg_chk:
-                     self._generate_date_list()
+                     self._date_tool.generate_date_list(self.date_start, self.date_end, self.date_list)
                      self.clock_in_out()
-       
-       def _check_holidays(self, date_list) -> int:
-       # check whether a day is a holiday in Taiwan holiday calendar or not
-              holiday_list =[]
-              holiday_cnt = 0
-              with open('holidays.csv', newline='') as holidaycsv:
-                     rows = csv.reader(holidaycsv)
-                     for row in rows:
-                            holiday_list.append([int(row[0]),int(row[1]),int(row[2])])
-              self.logger.info(f"[Done] read all the holidays from the holidays.csv: {holiday_list}")
-              for date in date_list:
-                     if date in holiday_list:
-                            date_list.remove(date)
-                            holiday_cnt +=1
-              return holiday_cnt
-
-       def _generate_date_list(self):
-       # generating dates
-              days_cnt = (self.date_end - self.date_start).days + 1
-              res = 0
-              for d in range(days_cnt):
-                     day = self.date_start + timedelta(days=d)
-                     if day.weekday() < 5:
-                            res += 1
-                            self.date_list.append([int(day.strftime("%Y")),int(day.strftime("%m")),int(day.strftime("%d"))])
-              holiday_cnt = self._check_holidays(self.date_list)
-              self.logger.info(f"[Checked] Total business days in range: {str(res-holiday_cnt)}; the date list: {str(self.date_list)}")
 
        def clock_in_out(self):
               try:
@@ -243,7 +186,7 @@ class UIClock:
                      if self._auto_clk.login(credentials=[comp,user,pwd]):
                             self.label_conn_status.config(text = "Connected", bg='green')
                             self.login_page.destroy()
-                            self._write_ini(user,pwd)
+                            self._cred_rw_tool.write_ini(user,pwd)
                             self.logger.info("[Done] login to Aurora ERP system")
 
 if __name__ == "__main__":

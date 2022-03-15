@@ -1,5 +1,5 @@
 from unicodedata import name
-from PY_Clock_temp import UIClock
+from aurora_ui import UIClock
 import logging
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import logging
 import random
 from xpath_dict import xpath_dict
 from xmlrpc.client import Boolean
-from selenium import webdriver, common
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,8 +19,9 @@ class AuroraAutoClocker:
         self._open_Chrome()
         self._login_fields = [xpath_dict['公司'],xpath_dict['帳號'],xpath_dict['密碼']]
         self._credentials = []
-        self.logger.info("[Done] instantiated AutoClocker")
         self._on_hour, self._off_hour, self._on_off_min = None, None, None
+        self.logger.info("[Done] instantiated AutoClocker")
+        
 
     def _open_Chrome(self):
         try:
@@ -62,7 +63,7 @@ class AuroraAutoClocker:
             self.logger.debug("[Done] sleeping 2 seconds")
         return take_a_pause
 
-    def login(self, credentials=['qd9323', '422631', 'A129085122']) -> Boolean:
+    def login(self, credentials=['qd9323', '123456', 'A123456789']) -> Boolean:
         self._credentials = credentials
         try:
             # 輸入credentials 並登入
@@ -95,8 +96,8 @@ class AuroraAutoClocker:
         on_off_min = f"{random.randint(30,60)}分\n"
         if on_off_min == "60分\n":
             on_off_min = "00分" 
-        on_hour = "09時\n" if on_off_min == 60 else "08時\n"
-        off_hour = "18時\n" if on_off_min == 60 else "17時\n"
+        on_hour = "09時\n" if on_off_min == "60分\n" else "08時\n"
+        off_hour = "18時\n" if on_off_min == "60分\n" else "17時\n"
         
         self._on_hour, self._off_hour, self._on_off_min = on_hour, off_hour, on_off_min
         self.logger.info(f"[Checked] the generated random on/off time: On-Hour: {on_hour},  Off-Hour: {off_hour}, Min: {on_off_min}")
