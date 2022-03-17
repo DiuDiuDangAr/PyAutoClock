@@ -4,7 +4,7 @@
 Use Selenium module to  locate the buttons, inputs of the Aurora ERP system, and try to automatically punch the clock according to the user's selection on start & end dates.
 
 ## Download
-點擊此處下載[AuroraAutoClockPunching.exe](https://github.com/DiuDiuDangAr/PyAutoClock/releases/tag/1.0.0)
+點擊此處下載[AuroraAutoClockPunching.exe](https://github.com/DiuDiuDangAr/PyAutoClock/releases/)
 
 or
 
