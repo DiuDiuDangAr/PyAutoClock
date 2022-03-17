@@ -22,7 +22,7 @@ class DateTool:
         self.logger.info(f"[Done] read all the holidays from the holidays.csv: {self._holiday_list}")
         
         self._workday_list = date_list
-        for date in self._workday_list:
+        for date in self._workday_list[:]:
                 if date in self._holiday_list:
                     self._workday_list.remove(date)
                     self.logger.info(f"[Checked] remove date: {date}")
