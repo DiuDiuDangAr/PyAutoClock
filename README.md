@@ -12,6 +12,7 @@ Use Selenium module to  locate the buttons, inputs of the Aurora ERP system, and
 ![SOP](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/appendix/sop_.gif)
 
 Note: 程式自動打卡時, 相關視窗皆可縮小, 但切記別關閉! 完成後會彈出視窗顯示打卡完成
+
 ![finished](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/appendix/finished.PNG)
 
 ## Download
