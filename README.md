@@ -9,7 +9,10 @@ Use Selenium module to  locate the buttons, inputs of the Aurora ERP system, and
 3. 連線成功後 點擊開始日期 -> 點擊Get Start Date -> 點擊結束日期 -> 點擊Get End Date
 4. 按下 Start Clockin and clockout! 按鈕程式將開始自動打卡
 
-Note: 程式自動打卡時, 相關視窗皆可縮小, 但切記別關閉!
+![SOP](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/appendix/sop_.gif)
+
+Note: 程式自動打卡時, 相關視窗皆可縮小, 但切記別關閉! 完成後會彈出視窗顯示打卡完成
+![finished](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/appendix/finished.PNG)
 
 ## Download
 點擊此處下載[AuroraAutoClockPunching.exe](https://github.com/DiuDiuDangAr/PyAutoClock/releases/)
