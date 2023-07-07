@@ -19,7 +19,7 @@ class UIClock:
 
        # create tkinter object
               self.root = tk.Tk()
-              self.root.iconphoto(True, tk.PhotoImage(file='./ni.png'))
+              self.root.iconphoto(True, tk.PhotoImage(file='misc/ni.png'))
               self.root.title("Aurora自動化打卡系統")
               self.root.protocol("WM_DELETE_WINDOW", self.close_action)
 

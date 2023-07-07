@@ -134,26 +134,26 @@ class AuroraAutoClocker:
             self._driver.execute_script("arguments[0].setAttribute('class','chosen-container chosen-container-single chosen-container-active chosen-with-drop')", btnHour)
             self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(self._off_hour)
             self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(Keys.TAB)
-            time.sleep(1)
+            time.sleep(0.5)
 
             # 20220309選擇下班卡別: 震旦JS code會去判斷是否有"checked" 這個attribute, 透過JS 將此attr設為false 使卡別判斷可進到下班條件產生 sS_type: 0002
             self._driver.execute_script("arguments[0].setAttribute('class', 'switch-off switch-animate')", btnOffDuty)
             btnOffDutyCheck = self._driver.find_element(By.XPATH, xpath_dict['卡別按鈕'])
             self._driver.execute_script("arguments[0].checked = false;",btnOffDutyCheck)
-            time.sleep(1)       
+            time.sleep(0.5)       
         else:
             # 20220309選擇小時: 原本的寫法, 只有改變到HTML的外觀!!  
             #self._driver.execute_script('arguments[0].innerHTML = "09時";', btnHour)
             self._driver.execute_script("arguments[0].setAttribute('class','chosen-container chosen-container-single chosen-container-active chosen-with-drop')", btnHour)
             self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(self._on_hour)
             self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(Keys.TAB)
-            time.sleep(1) 
+            time.sleep(0.5) 
 
         # Select the 'Min'
         self._driver.execute_script("arguments[0].setAttribute('class','chosen-container chosen-container-single chosen-container-active chosen-with-drop')", btnMin)
         self._driver.find_element(By.XPATH, xpath_dict['分鐘按鈕']).send_keys(self._on_off_min)
         self._driver.find_element(By.XPATH, xpath_dict['分鐘按鈕']).send_keys(Keys.TAB)
-        time.sleep(1) 
+        time.sleep(0.5) 
 
         # Select the 'Date'
         date = f'day_Click({y},{m},{d});'
@@ -164,7 +164,7 @@ class AuroraAutoClocker:
 
         try:
             self._driver.find_element(By.XPATH, xpath_dict['月曆按鈕']).click()
-            time.sleep(1)
+            time.sleep(0.5)
 
             iFrame = self._driver.find_element(By.XPATH, xpath_dict['月曆'])
             self._driver.switch_to.frame(iFrame)
@@ -172,18 +172,18 @@ class AuroraAutoClocker:
             self._driver.find_element(By.XPATH, xpath_dict['月份按鈕']).click()
             self.logger.info("[INFO] month value is: " + month)
             self._driver.find_element(By.XPATH, xpath_dict['月份按鈕']).send_keys(month)
-            time.sleep(1)
+            time.sleep(0.5)
 
             self._driver.find_element(By.XPATH, xpath_dict['年份按鈕']).click()
             self.logger.info("[INFO] year value is: " + year)
             self._driver.find_element(By.XPATH, xpath_dict['年份按鈕']).send_keys(year)
             self._driver.find_element(By.XPATH, xpath_dict['年份按鈕']).send_keys(Keys.TAB)
-            time.sleep(1)
+            time.sleep(0.5)
 
             xpath_target_date = '//td[@onclick="{}"]'.format(date)
             # xpath_target_date = '//table[@class=WdayTable]//td[@onclick="{}"]'.format(date)
             self._driver.find_element(By.XPATH, xpath_target_date).click()
-            time.sleep(1)
+            time.sleep(0.5)
 
             self._driver.switch_to.parent_frame()
             self.logger.info("[Done] selecting the date: " + xpath_target_date)

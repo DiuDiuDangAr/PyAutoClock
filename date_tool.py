@@ -6,7 +6,7 @@ class DateTool:
     def __init__(self) -> None:
         self.logger = logging.getLogger("date_tool")
 
-        self._file_name = 'holidays.csv'
+        self._file_name = 'misc/holidays.csv'
         self._workday_list = None
         self._workday_cnt = 0
         self._holiday_list = []
@@ -15,11 +15,15 @@ class DateTool:
     def _check_holidays(self, date_list) -> int:
         self._holiday_cnt = 0
         # check whether a day is a holiday in Taiwan holiday calendar or not
-        with open(self._file_name, newline='') as holidaycsv:
-                rows = csv.reader(holidaycsv)
-                for row in rows:
-                    self._holiday_list.append([int(row[0]),int(row[1]),int(row[2])])
-        self.logger.info(f"[Done] read all the holidays from the holidays.csv: {self._holiday_list}")
+        try:
+            with open(self._file_name, newline='') as holidaycsv:
+                    rows = csv.reader(holidaycsv)
+                    for row in rows:
+                        self._holiday_list.append([int(row[0]),int(row[1]),int(row[2])])
+        except:
+             self.logger.info(f"[Error] reading the holidays.csv: {self._holiday_list}")
+        else:
+            self.logger.info(f"[Done] read all the holidays from the holidays.csv: {self._holiday_list}")
         
         self._workday_list = date_list
         for date in self._workday_list[:]:
@@ -44,7 +48,8 @@ class DateTool:
         return self._workday_list
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.INFO,
+    handlers=[logging.FileHandler('date_tool.log', 'w', 'utf-8')])
     date_tool = DateTool()
     date_list = []
     date_tool.generate_date_list(start= date.today(), end= date.today(), date_list=date_list)

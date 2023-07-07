@@ -5,7 +5,7 @@ import logging
 class CredentialRWTool:
     def __init__(self):
         self._key = 'djq%5cu#-jeq15abg$z9_i#_w=$o88m!*alpbedlbat8cr74sd'
-        self._file_name = "config.ini"
+        self._file_name = "misc/config.ini"
         self.logger = logging.getLogger("credential_rw_tool")
 
     def _decrypt(self, s) -> str:
