@@ -16,6 +16,7 @@ xpath_dict = {
     "月曆按鈕" : '//*[@id="MainContent_txtYMD"]',
     "月曆" : '//*[@id="_my97DP"]/iframe',
     "月份按鈕" : '//*[@id="dpTitle"]/div[3]/input',
+    "年份按鈕" : '/html/body/div/div[1]/div[4]/input',
     "公司" : '//*[@id="company_id"]',
     "帳號" : '//*[@id="login_name"]',
     "密碼" : '//*[@id="password"]'

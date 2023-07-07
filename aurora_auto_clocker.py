@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 # from selenium.webdriver.support.ui import Select
 # from selenium.webdriver.common.action_chains import ActionChains
 
@@ -77,7 +78,7 @@ class AuroraAutoClocker:
             self.logger.debug("[Done] sleeping 2 seconds")
         return take_a_pause
 
-    def login(self, credentials=['qd9323', '123456', 'A123456789']) -> Boolean:
+    def login(self, credentials=['qd9323', '422631', 'A129085122']) -> Boolean:
         self._credentials = credentials
         try:
             # 輸入credentials 並登入
@@ -117,7 +118,7 @@ class AuroraAutoClocker:
         self.logger.info(f"[Checked] the generated random on/off time: On-Hour: {on_hour},  Off-Hour: {off_hour}, Min: {on_off_min}")
 
     # Select the time: 'Hour' and check whether to toggle to Off work
-    def select_time(self, clkin=True, y=2024, m=6, d=11):
+    def select_time(self, clkin=True, y=2024, m=7, d=11):
         # 20220309選擇小時: 原本的寫法, 只有改變到HTML的外觀!! 
         # btnHour = self._driver.find_element(By.XPATH, '//*[@id="MainContent_drpHour_chosen"]/a/span')
         btnHour = self._driver.find_element(By.XPATH, xpath_dict['小時'])
@@ -129,6 +130,8 @@ class AuroraAutoClocker:
             #self._driver.execute_script('arguments[0].innerHTML = "18時";', btnHour)
             self._driver.execute_script("arguments[0].setAttribute('class','chosen-container chosen-container-single chosen-container-active chosen-with-drop')", btnHour)
             self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(self._off_hour)
+            self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(Keys.TAB)
+            time.sleep(1)
 
             # 20220309選擇下班卡別: 震旦JS code會去判斷是否有"checked" 這個attribute, 透過JS 將此attr設為false 使卡別判斷可進到下班條件產生 sS_type: 0002
             self._driver.execute_script("arguments[0].setAttribute('class', 'switch-off switch-animate')", btnOffDuty)
@@ -140,26 +143,45 @@ class AuroraAutoClocker:
             #self._driver.execute_script('arguments[0].innerHTML = "09時";', btnHour)
             self._driver.execute_script("arguments[0].setAttribute('class','chosen-container chosen-container-single chosen-container-active chosen-with-drop')", btnHour)
             self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(self._on_hour)
+            self._driver.find_element(By.XPATH, xpath_dict['小時按鈕']).send_keys(Keys.TAB)
+            time.sleep(1) 
 
         # Select the 'Min'
         self._driver.execute_script("arguments[0].setAttribute('class','chosen-container chosen-container-single chosen-container-active chosen-with-drop')", btnMin)
         self._driver.find_element(By.XPATH, xpath_dict['分鐘按鈕']).send_keys(self._on_off_min)
+        self._driver.find_element(By.XPATH, xpath_dict['分鐘按鈕']).send_keys(Keys.TAB)
+        time.sleep(1) 
 
         # Select the 'Date'
         date = f'day_Click({y},{m},{d});'
         month_year = f'{m}\t{y}\t'
+        month = f'{m}'
+        year = f'{y}'
         self.logger.info("[Done] received date: " + date)
 
         try:
             self._driver.find_element(By.XPATH, xpath_dict['月曆按鈕']).click()
             time.sleep(1)
+
             iFrame = self._driver.find_element(By.XPATH, xpath_dict['月曆'])
             self._driver.switch_to.frame(iFrame)
             # xpath_target_date = "//td[.='{}']".format(target_date)
             self._driver.find_element(By.XPATH, xpath_dict['月份按鈕']).click()
-            self._driver.find_element(By.XPATH, xpath_dict['月份按鈕']).send_keys(month_year)
-            xpath_target_date = "//td[@onclick='{}']".format(date)
+            self.logger.info("[INFO] month value is: " + month)
+            self._driver.find_element(By.XPATH, xpath_dict['月份按鈕']).send_keys(month)
+            time.sleep(1)
+
+            self._driver.find_element(By.XPATH, xpath_dict['年份按鈕']).click()
+            self.logger.info("[INFO] year value is: " + year)
+            self._driver.find_element(By.XPATH, xpath_dict['年份按鈕']).send_keys(year)
+            self._driver.find_element(By.XPATH, xpath_dict['年份按鈕']).send_keys(Keys.TAB)
+            time.sleep(1)
+
+            xpath_target_date = '//td[@onclick="{}"]'.format(date)
+            # xpath_target_date = '//table[@class=WdayTable]//td[@onclick="{}"]'.format(date)
             self._driver.find_element(By.XPATH, xpath_target_date).click()
+            time.sleep(1)
+
             self._driver.switch_to.parent_frame()
             self.logger.info("[Done] selecting the date: " + xpath_target_date)
         except Exception as e:
