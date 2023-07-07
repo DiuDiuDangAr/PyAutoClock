@@ -5,6 +5,7 @@ from xpath_dict import xpath_dict
 from xmlrpc.client import Boolean
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
@@ -26,7 +27,9 @@ class AuroraAutoClocker:
         
     def _open_Firefox(self):
         try:
-            self._driver = webdriver.Firefox()
+            options = Options()
+            options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+            self._driver = webdriver.Firefox(options=options)
             self._driver.minimize_window()
             self._driver.set_window_size(1280,720) 
             #self._driver.set_window_position(-100000,0)
