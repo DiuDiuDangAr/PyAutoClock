@@ -16,15 +16,29 @@ class AuroraAutoClocker:
         self.logger = logging.getLogger("aurora-auto-clocker")
         self._url = url
         self._driver = None
-        self._open_Chrome()
+        # self._open_Chrome()
+        self._open_Firefox()
         self._login_fields = [xpath_dict['公司'],xpath_dict['帳號'],xpath_dict['密碼']]
         self._credentials = []
         self._on_hour, self._off_hour, self._on_off_min = None, None, None
         self.logger.info("[Done] instantiated AutoClocker")
         
+    def _open_Firefox(self):
+        try:
+            self._driver = webdriver.Firefox()
+            self._driver.minimize_window()
+            self._driver.set_window_size(1280,720) 
+            #self._driver.set_window_position(-100000,0)
+            self._driver.get(self._url)
+            self.logger.info("[Done] opened Aurora webpage in Firefox")
+        except Exception as e:
+            self.logger.error(f"open the Aurora webpage in Firefox: {e}")
 
     def _open_Chrome(self):
         try:
+            self.chrome_options = webdriver.ChromeOptions()
+            self.chrome_options.add_argument('--no-sandbox')
+            self.chrome_options.add_argument('--disable-dev-shm-usage')
             self._driver = webdriver.Chrome()
             self._driver.minimize_window()
             self._driver.set_window_size(1280,720) 
@@ -36,7 +50,7 @@ class AuroraAutoClocker:
 
     @property
     def browser_id(self):
-        self.logger.info(f"[Done] returnning the chrome browser session id {self._driver.session_id}")
+        self.logger.info(f"[Done] returnning the browser session id {self._driver.session_id}")
         return self._driver.session_id
 
     @property
@@ -46,7 +60,7 @@ class AuroraAutoClocker:
             self.logger.info(f"[Done] returnning the title of the browser: {title}")
             return title
         except Exception as e:
-            self.logger.warning(f"accessing the Chrome browser {e}")
+            self.logger.warning(f"accessing the browser {e}")
             return None
 
     def _sleep_for_a_second_after_calling(func):

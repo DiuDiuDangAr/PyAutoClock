@@ -1,4 +1,5 @@
 /aurora_auto_clock.log
+/aurora_auto_clock_main.log
 /Aurora打卡小工具說明.docx
 /Build
 /config.ini
@@ -7,3 +8,7 @@
 /setup_logger.py
 /__pycache__
 /history.log
+/bell_icon.ico
+chromedriver.exe
+chromedriver.exe
+clock_.mp4
