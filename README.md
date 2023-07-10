@@ -22,12 +22,17 @@ or
 
     $ git clone https://github.com/DiuDiuDangAr/PyAutoClock
 
+FireFox Geckdriver [Download location](https://github.com/mozilla/geckodriver/releases)
 Chrome Driver [Download location](https://chromedriver.chromium.org/downloads)
 
 ## Installation & Usage
-#安裝與操作細節請參考 [Aurora打卡小工具說明.pdf](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/Aurora%E6%89%93%E5%8D%A1%E5%B0%8F%E5%B7%A5%E5%85%B7%E8%AA%AA%E6%98%8E.pdf)
+# 2.0.X - 安裝與操作細節請參考 [Aurora打卡小工具2.0.pdf](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/Aurora%E6%89%93%E5%8D%A1%E5%B0%8F%E5%B7%A5%E5%85%B72.0%E8%AA%AA%E6%98%8E.pdf)
+# 1.0.X - 安裝與操作細節請參考 [Aurora打卡小工具說明.pdf](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/Aurora%E6%89%93%E5%8D%A1%E5%B0%8F%E5%B7%A5%E5%85%B7%E8%AA%AA%E6%98%8E.pdf)
 
-## Dependencies
+## Dependencies - For 2.0.X
+1. FireFox browser installed (version shall be 114 or 115)
+
+## Dependencies - For 1.0.X
 1. Chrome browser installed
 2. Chrome driver installed
 
