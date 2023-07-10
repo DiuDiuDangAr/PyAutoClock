@@ -16,7 +16,9 @@ Note: 程式自動打卡時, 相關視窗皆可縮小, 但切記別關閉! 完�
 ![finished](https://github.com/DiuDiuDangAr/PyAutoClock/blob/main/appendix/finished.PNG)
 
 ## Download
-點擊此處下載[AuroraAutoClockPunching.exe](https://github.com/DiuDiuDangAr/PyAutoClock/releases/)
+下載主程式[AuroraAutoClockPunching.exe](https://github.com/DiuDiuDangAr/PyAutoClock/releases/)
+
+下載FireFox[FireFox](https://support.mozilla.org/zh-CN/kb/%E5%AE%89%E8%A3%85%20Firefox%20%E4%BB%A5%E5%89%8D%E7%9A%84%E7%89%88%E6%9C%AC)
 
 or
 
