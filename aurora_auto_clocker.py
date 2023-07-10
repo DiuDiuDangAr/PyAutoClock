@@ -31,10 +31,13 @@ class AuroraAutoClocker:
             options = Options()
             if platform.platform().find("Windows") == 0:
                 options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+                self.logger.info("[Done] it's in Windows")
             elif platform.platform().find("mac") == 0:
                 options.binary_location = r'/Applications/Firefox.app/Contents/MacOS/firefox-bin'
+                self.logger.info("[Done] it's in MacOS")
             else:
                 options.binary_location = r'/usr/bin/firefox.bin'
+                self.logger.info("[Done] it's in Linux")
             self._driver = webdriver.Firefox(options=options)
             self._driver.minimize_window()
             self._driver.set_window_size(1280,720) 
