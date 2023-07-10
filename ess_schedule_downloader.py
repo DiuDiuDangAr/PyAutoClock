@@ -44,6 +44,6 @@ if __name__ == "__main__":
     print("ok")
     ess_syncer = EssSyncer()
     ess_syncer._open_Chrome()
-    ess_syncer.login(422631, "Aa791024!")
+    ess_syncer.login(422631, "xxxxxx")
     ess_syncer.browse_webpage('https://cn-sha-hrm1.ni.corp.natinst.com/PlatinumHRM-ESS/WebPages/MyTime/MyLeaveDetails.aspx?tab=ESS_11')
     ess_syncer.crawl_web()
