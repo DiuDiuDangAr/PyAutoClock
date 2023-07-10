@@ -1,6 +1,7 @@
 import time
 import logging
 import random
+import platform
 from xpath_dict import xpath_dict
 from xmlrpc.client import Boolean
 from selenium import webdriver
@@ -28,7 +29,12 @@ class AuroraAutoClocker:
     def _open_Firefox(self):
         try:
             options = Options()
-            options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+            if platform.platform().find("Windows") == 0:
+                options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+            elif platform.platform().find("mac") == 0:
+                options.binary_location = r'/Applications/Firefox.app/Contents/MacOS/firefox-bin'
+            else:
+                options.binary_location = r'/usr/bin/firefox.bin'
             self._driver = webdriver.Firefox(options=options)
             self._driver.minimize_window()
             self._driver.set_window_size(1280,720) 
